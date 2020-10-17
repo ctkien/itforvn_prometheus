@@ -1,0 +1,308 @@
+cisco_asa:
+  walk:
+  - 1.3.6.1.2.1.2.2.1.10
+  - 1.3.6.1.2.1.2.2.1.13
+  - 1.3.6.1.2.1.2.2.1.16
+  - 1.3.6.1.2.1.2.2.1.19
+  - 1.3.6.1.2.1.2.2.1.2
+  - 1.3.6.1.2.1.2.2.1.7
+  - 1.3.6.1.2.1.2.2.1.8
+  - 1.3.6.1.4.1.9.9.109.1.1.1.1.7
+  - 1.3.6.1.4.1.9.9.147.1.2.1.1.1.2
+  - 1.3.6.1.4.1.9.9.147.1.2.1.1.1.3
+  - 1.3.6.1.4.1.9.9.147.1.2.1.1.1.4
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.10
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.11
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.2
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.35
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.36
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.4
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.6
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.7
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.8
+  - 1.3.6.1.4.1.9.9.392.1.3.21.1.9
+  - 1.3.6.1.4.1.9.9.48.1.1.1.5
+  - 1.3.6.1.4.1.9.9.48.1.1.1.6
+  get:
+  - 1.3.6.1.4.1.9.9.392.1.1.1.0
+  - 1.3.6.1.4.1.9.9.491.1.1.1.10.0
+  - 1.3.6.1.4.1.9.9.491.1.1.1.6.0
+  metrics:
+  - name: ifInOctets
+    oid: 1.3.6.1.2.1.2.2.1.10
+    type: counter
+    help: The total number of octets received on the interface, including framing
+      characters - 1.3.6.1.2.1.2.2.1.10
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+  - name: ifInDiscards
+    oid: 1.3.6.1.2.1.2.2.1.13
+    type: counter
+    help: The number of inbound packets which were chosen to be discarded even though
+      no errors had been detected to prevent their being deliverable to a higher-layer
+      protocol - 1.3.6.1.2.1.2.2.1.13
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+  - name: ifOutOctets
+    oid: 1.3.6.1.2.1.2.2.1.16
+    type: counter
+    help: The total number of octets transmitted out of the interface, including framing
+      characters - 1.3.6.1.2.1.2.2.1.16
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+  - name: ifOutDiscards
+    oid: 1.3.6.1.2.1.2.2.1.19
+    type: counter
+    help: The number of outbound packets which were chosen to be discarded even though
+      no errors had been detected to prevent their being transmitted - 1.3.6.1.2.1.2.2.1.19
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+  - name: ifDescr
+    oid: 1.3.6.1.2.1.2.2.1.2
+    type: DisplayString
+    help: A textual string containing information about the interface - 1.3.6.1.2.1.2.2.1.2
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+  - name: ifAdminStatus
+    oid: 1.3.6.1.2.1.2.2.1.7
+    type: gauge
+    help: The desired state of the interface - 1.3.6.1.2.1.2.2.1.7
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    enum_values:
+      1: up
+      2: down
+      3: testing
+  - name: cfwHardwareStatusValue
+    oid: 1.3.6.1.4.1.9.9.147.1.2.1.1.1.3
+    type: gauge
+    help: This object contains the current status of the resource. - 1.3.6.1.4.1.9.9.147.1.2.1.1.1.3
+    indexes:
+    - labelname: cfwHardwareType
+      type: gauge
+    enum_values:
+      1: other
+      2: up
+      3: down
+      4: error
+      5: overTemp
+      6: busy
+      7: noMedia
+      8: backup
+      9: active
+      10: standby
+  - name: cfwHardwareStatusDetail
+    oid: 1.3.6.1.4.1.9.9.147.1.2.1.1.1.4
+    type: DisplayString
+    help: A detailed textual description of the current status of the resource which
+      may provide a more specific description than cfwHardwareStatusValue. - 1.3.6.1.4.1.9.9.147.1.2.1.1.1.4
+    indexes:
+    - labelname: cfwHardwareType
+      type: gauge
+  - name: ifOperStatus
+    oid: 1.3.6.1.2.1.2.2.1.8
+    type: gauge
+    help: The current operational state of the interface - 1.3.6.1.2.1.2.2.1.8
+    indexes:
+    - labelname: ifIndex
+      type: gauge
+    lookups:
+    - labels:
+      - ifIndex
+      labelname: ifDescr
+      oid: 1.3.6.1.2.1.2.2.1.2
+      type: DisplayString
+    enum_values:
+      1: up
+      2: down
+      3: testing
+      4: unknown
+      5: dormant
+      6: notPresent
+      7: lowerLayerDown
+  - name: cpmCPUTotal1minRev
+    oid: 1.3.6.1.4.1.9.9.109.1.1.1.1.7
+    type: gauge
+    help: The overall CPU busy percentage in the last 1 minute period - 1.3.6.1.4.1.9.9.109.1.1.1.1.7
+    indexes:
+    - labelname: cpmCPUTotalIndex
+      type: gauge
+  - name: cfwHardwareInformation
+    oid: 1.3.6.1.4.1.9.9.147.1.2.1.1.1.2
+    type: DisplayString
+    help: A detailed textual description of the resource identified by cfwHardwareType.
+      - 1.3.6.1.4.1.9.9.147.1.2.1.1.1.2
+    indexes:
+    - labelname: cfwHardwareType
+      type: gauge
+  - name: crasMaxSessionsSupportable
+    oid: 1.3.6.1.4.1.9.9.392.1.1.1
+    type: gauge
+    help: The maximum number of remote access sessions that may be supported on this
+      device - 1.3.6.1.4.1.9.9.392.1.1.1
+  - name: crasISPAddress
+    oid: 1.3.6.1.4.1.9.9.392.1.3.21.1.10
+    type: DisplayString
+    help: The IP address of the peer (client) assigned by the ISP - 1.3.6.1.4.1.9.9.392.1.3.21.1.10
+    indexes:
+    - labelname: crasUsername
+      type: DisplayString
+    - labelname: crasSessionIndex
+      type: gauge
+  - name: crasSessionProtocol
+    oid: 1.3.6.1.4.1.9.9.392.1.3.21.1.11
+    type: gauge
+    help: The protocol underlying this remote access session. - 1.3.6.1.4.1.9.9.392.1.3.21.1.11
+    indexes:
+    - labelname: crasUsername
+      type: DisplayString
+    - labelname: crasSessionIndex
+      type: gauge
+    enum_values:
+      1: other
+      2: ipsec
+      3: l2tp
+      4: l2tpoveripsec
+      5: pptp
+      6: l2f
+      7: ssl
+  - name: crasGroup
+    oid: 1.3.6.1.4.1.9.9.392.1.3.21.1.2
+    type: DisplayString
+    help: The name of the user group to which this remote access session belongs.
+      - 1.3.6.1.4.1.9.9.392.1.3.21.1.2
+    indexes:
+    - labelname: crasUsername
+      type: DisplayString
+    - labelname: crasSessionIndex
+      type: gauge
+  - name: crasSessionInOctets
+    oid: 1.3.6.1.4.1.9.9.392.1.3.21.1.35
+    type: counter
+    help: The total number of octets received by this Remote Access Session - 1.3.6.1.4.1.9.9.392.1.3.21.1.35
+    indexes:
+    - labelname: crasUsername
+      type: DisplayString
+    - labelname: crasSessionIndex
+      type: gauge
+  - name: crasSessionOutOctets
+    oid: 1.3.6.1.4.1.9.9.392.1.3.21.1.36
+    type: counter
+    help: The total number of octets transmitted by this Remote Access Session - 1.3.6.1.4.1.9.9.392.1.3.21.1.36
+    indexes:
+    - labelname: crasUsername
+      type: DisplayString
+    - labelname: crasSessionIndex
+      type: gauge
+  - name: crasAuthenMethod
+    oid: 1.3.6.1.4.1.9.9.392.1.3.21.1.4
+    type: gauge
+    help: The method used to authenticate the user prior to establishing the session.
+      - 1.3.6.1.4.1.9.9.392.1.3.21.1.4
+    indexes:
+    - labelname: crasUsername
+      type: DisplayString
+    - labelname: crasSessionIndex
+      type: gauge
+    enum_values:
+      1: none
+      2: other
+      3: radius
+      4: tacacsplus
+      5: kerberos
+      6: local
+      7: ldap
+      8: ntlm
+      9: sdi
+  - name: crasSessionDuration
+    oid: 1.3.6.1.4.1.9.9.392.1.3.21.1.6
+    type: counter
+    help: The number of seconds elapsed since this session was established. - 1.3.6.1.4.1.9.9.392.1.3.21.1.6
+    indexes:
+    - labelname: crasUsername
+      type: DisplayString
+    - labelname: crasSessionIndex
+      type: gauge
+  - name: crasLocalAddress
+    oid: 1.3.6.1.4.1.9.9.392.1.3.21.1.8
+    type: DisplayString
+    help: The IP address assigned to the client of this session in the private network
+      assigned by the managed entity. - 1.3.6.1.4.1.9.9.392.1.3.21.1.8
+    indexes:
+    - labelname: crasUsername
+      type: DisplayString
+    - labelname: crasSessionIndex
+      type: gauge
+  - name: ciscoMemoryPoolUsed
+    oid: 1.3.6.1.4.1.9.9.48.1.1.1.5
+    type: gauge
+    help: Indicates the number of bytes from the memory pool that are currently in
+      use by applications on the managed device. - 1.3.6.1.4.1.9.9.48.1.1.1.5
+    indexes:
+    - labelname: ciscoMemoryPoolType
+      type: gauge
+  - name: ciscoMemoryPoolFree
+    oid: 1.3.6.1.4.1.9.9.48.1.1.1.6
+    type: gauge
+    help: Indicates the number of bytes from the memory pool that are currently unused
+      on the managed device - 1.3.6.1.4.1.9.9.48.1.1.1.6
+    indexes:
+    - labelname: ciscoMemoryPoolType
+      type: gauge
+  - name: cufwConnGlobalConnSetupRate1
+    oid: 1.3.6.1.4.1.9.9.491.1.1.1.10
+    type: gauge
+    help: The averaged number of connections which the firewall establishing per second,
+      averaged over the last 60 seconds. - 1.3.6.1.4.1.9.9.491.1.1.1.10
+  - name: cufwConnGlobalNumActive
+    oid: 1.3.6.1.4.1.9.9.491.1.1.1.6
+    type: gauge
+    help: The number of connections which are currently active. - 1.3.6.1.4.1.9.9.491.1.1.1.6
+  version: 3
+  max_repetitions: 25
+  retries: 3
+  timeout: 20s
+  auth:
+    community: xxxxxx
