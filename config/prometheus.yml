@@ -1,0 +1,64 @@
+#
+# Ansible managed
+#
+# http://prometheus.io/docs/operating/configuration/
+
+global:
+  evaluation_interval: 1m
+  scrape_interval: 1m
+  scrape_timeout: 30s
+
+  external_labels:
+    environment: localhost.localdomain
+
+
+
+
+rule_files:
+  - /etc/prometheus/rules/*.rules
+
+
+scrape_configs:
+  - job_name: prometheus
+    metrics_path: /metrics
+    static_configs:
+    - targets:
+      - localhost.localdomain:9090
+  - job_name: node
+    metrics_path: /metrics
+    file_sd_configs:
+    - files:
+      - '/etc/prometheus/file_sd/node.json'
+  - job_name: win
+    metrics_path: /metrics
+    file_sd_configs:
+    - files:
+      - '/etc/prometheus/file_sd/windows.json'
+  - job_name: 'icmp'
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    file_sd_configs:
+    - files:
+      - '/etc/prometheus/file_sd/icmp.json'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 1.1.1.1:9115
+  - job_name: 'http'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    file_sd_configs:
+    - files:
+      - '/etc/prometheus/file_sd/http.json'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 1.1.1.1:9115
